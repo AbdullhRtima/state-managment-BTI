@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, { useEffect, useContext } from 'react';
+import GlobalState, { ACTIONS, GlobalContext } from './utils/context/GlobalContext';
+import Header from './components/Header';
+
 import './App.css';
 
-function App() {
+const App = () => {
+
+  // global state
+  const { globalState, dispatch } = useContext(GlobalContext);
+  console.log("🚀 ~ file: App.js ~ line 11 ~ App ~ globalState", globalState)
+
+  // useEffect
+  useEffect(() => {
+    const userData = {
+      name: 'John Doe',
+      age: 30,
+      profilePic: 'https://picsum.photos/id/237/200/300'
+    }
+    dispatch({ type: ACTIONS.CACHE_USER_DATA, payload: userData });
+  }, []);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
     </div>
   );
-}
+};
 
-export default App;
+const MainApp = () => {
+  return (
+    <GlobalState>
+      <App />
+    </GlobalState>
+  )
+}
+export default MainApp;
