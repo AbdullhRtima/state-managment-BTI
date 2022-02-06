@@ -6,11 +6,11 @@ import './UserCard.css';
 
 const UserCard = () => {
     const { globalState } = useContext(GlobalContext);
-    const { userData } = globalState;
+
     return (
         <div className='user-card'>
-            <img className='profile-img' src={userData.profilePic} alt='user-pic' />
-            <h3>{userData.name}</h3>
+            <img className='profile-img' src={globalState?.userData?.profilePic || ''} alt='user-pic' />
+            <h3>{globalState?.userData?.name || ''}</h3>
         </div>
     )
 }
