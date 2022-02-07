@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import GlobalState, { ACTIONS, GlobalContext } from './utils/context/GlobalContext';
 import Header from './components/Header';
+import ImageUploader from './components/ImageUploader';
 
 import './App.css';
 
@@ -8,7 +9,6 @@ const App = () => {
 
   // global state
   const { globalState, dispatch } = useContext(GlobalContext);
-  console.log("🚀 ~ file: App.js ~ line 11 ~ App ~ globalState", globalState)
 
   // useEffect
   useEffect(() => {
@@ -23,6 +23,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
+      <ImageUploader />
     </div>
   );
 };
