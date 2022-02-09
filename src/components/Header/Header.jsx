@@ -5,6 +5,7 @@ import UserCard from '../UserCard';
 import './Header.css';
 
 const Header = () => {
+    console.log(window.location.pathname);
     return (
         <div className='header'>
             <h1>
