@@ -1,0 +1,12 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.pic {
+    width: 500px;
+    height: 500px;
+}
