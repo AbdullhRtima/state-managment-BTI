@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import GlobalState, { ACTIONS, GlobalContext } from './utils/context/GlobalContext';
 import Header from './components/Header';
-import ImageUploader from './components/ImageUploader';
 import Uploader from './pages/ImageUploader';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Login from './pages/Auth/Login';
