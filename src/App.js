@@ -3,11 +3,12 @@ import GlobalState, { ACTIONS, GlobalContext } from './utils/context/GlobalConte
 import Header from './components/Header';
 import Uploader from './pages/ImageUploader';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import Login from './pages/Auth/Login';
+import Login from './pages/Auth/LoginTwo';
 import { NotFound } from './pages/Common/NotFound/NotFound';
 import useAuth from './utils/hooks/Auth';
 import Quiz from './pages/Quiz';
 import QuizDetails from './pages/QuizDetails';
+import SignUp from './pages/Auth/SignUp/SignUp';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ const MainApp = () => {
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="quiz/details/:id" element={<QuizDetails />} />
           <Route path="*" element={<NotFound />} />

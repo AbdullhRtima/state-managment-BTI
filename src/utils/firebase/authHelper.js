@@ -10,7 +10,8 @@ import {
     db,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    signOut,
 } from './index';
 
 // google auth provider
@@ -20,6 +21,7 @@ export const signInWithGoogle = async () => {
     try {
         const res = await signInWithPopup(auth, googleProvider);
         const user = res.user;
+        console.log("🚀 ~ file: authHelper.js ~ line 24 ~ signInWithGoogle ~ user", user)
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const docs = await getDocs(q);
         if (docs.docs.length === 0) {
@@ -28,9 +30,10 @@ export const signInWithGoogle = async () => {
                 name: user.displayName,
                 authProvider: "google",
                 email: user.email,
+                photoURL: user.photoURL,
             });
         }
-        return true;
+        return user;
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -40,7 +43,8 @@ export const signInWithGoogle = async () => {
 
 export const logInWithEmailAndPassword = async (email, password) => {
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const data = await signInWithEmailAndPassword(auth, email, password);
+        console.log("🚀 ~ file: authHelper.js ~ line 47 ~ logInWithEmailAndPassword ~ data", data)
         return true;
     } catch (err) {
         console.error(err);
@@ -49,21 +53,23 @@ export const logInWithEmailAndPassword = async (email, password) => {
     }
 };
 
-export const registerWithEmailAndPassword = async (name, email, password) => {
+export const registerWithEmailAndPassword = async (name, email, password, photo) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
+        console.log("🚀 ~ file: authHelper.js ~ line 59 ~ registerWithEmailAndPassword ~ user", user)
         await addDoc(collection(db, "users"), {
             uid: user.uid,
             name,
             authProvider: "local",
             email,
+            photoURL: photo || "",
         });
         return true;
     } catch (err) {
         console.error(err);
         alert(err.message);
-        return false;
+        return err.message;
     }
 };
 

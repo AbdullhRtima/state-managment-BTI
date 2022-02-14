@@ -1,0 +1,48 @@
+.section-one {
+    background-color: var(--color-white);
+    height: 100vh;
+}
+.section-two {
+    background-color: var(--color-whisper);
+    height: 100vh;
+}
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+}
+.text-title {
+    color: var(--color-black);
+    font-size: 2.4rem;
+}
+
+.header-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+}
+.title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title-container h1.ant-typography,
+.ant-typography h1 {
+    margin-bottom: 0;
+}
+.title {
+    color: var(--color-black);
+    font-size: 2.2rem;
+}
+.sub-title {
+    color: var(--color-black);
+    font-size: 1.6rem;
+}
+.divider{
+    height: 6.5rem !important;
+    padding-left: 1rem !important; 
+}

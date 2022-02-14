@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { ACTIONS, GlobalContext } from '../../context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
+import { getDataLocalStorage } from '../../helpers/localStorageHelper';
 
 const useAuth = () => {
     // state 
@@ -12,10 +13,15 @@ const useAuth = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (globalState?.userData?.isAuth) {
+        const userData = getDataLocalStorage('user-data');
+
+        if (userData) {
             setIsAuthenticated(true);
+            if (globalState.userData === null) {
+                dispatch({ type: ACTIONS.CACHE_USER_DATA, payload: userData });
+            }
             navigate('/');
-        }else{
+        } else {
             navigate('/login');
         }
     }, [globalState]);
