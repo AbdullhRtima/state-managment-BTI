@@ -86,3 +86,17 @@ export const sendPasswordReset = async (email) => {
 export const logout = () => {
     signOut(auth);
 };
+
+// get user data from firestore
+export const fetchUserData = async (user) => {
+    try {
+        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        console.log("🚀 ~ file: Login.jsx ~ line 49 ~ fetchUserName ~ data", data)
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occured while fetching user data");
+    }
+};

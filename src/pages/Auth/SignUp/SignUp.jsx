@@ -1,25 +1,81 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Row, Col, Image, Typography, Divider, Input } from 'antd';
-import { registerWithEmailAndPassword, signInWithGoogle } from '../../../utils/firebase/authHelper';
+import { registerWithEmailAndPassword, signInWithGoogle, fetchUserData } from '../../../utils/firebase/authHelper';
 import loginLogo from '../../../assets/images/loginLogo.svg';
 import logo from '../../../assets/images/logo.svg';
 import { useForm, Controller } from 'react-hook-form';
-import useAuth from '../../../utils/hooks/Auth';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from '../../../utils/firebase';
+import { useNavigate } from 'react-router-dom';
 
 // style 
 import './SignUp.css';
+import { setDataLocalStorage } from '../../../utils/helpers/localStorageHelper';
 
 // constants 
 const { Title, Text } = Typography;
 
 const SignUp = () => {
+    // state 
+    const [loadingFirebase, setLoadingFirebase] = useState(false);
+
     // hooks 
     const { handleSubmit, control, reset, formState: { errors } } = useForm({});
-    const onSubmit = useCallback((data) => {
-        console.log("🚀 ~ file: Login.jsx ~ line 17 ~ onSubmit ~ data", data)
-        registerWithEmailAndPassword(data.name, data.email, data.password);
+    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
+
+    const onSubmit = useCallback(async (data) => {
+        setLoadingFirebase(true);
+        await registerWithEmailAndPassword(data.name, data.email, data.password);
+        setLoadingFirebase(false);
     });
-    useAuth();
+
+    const onGoogleSignIn = useCallback(async () => {
+        setLoadingFirebase(true);
+        const data = await signInWithGoogle();
+        if (data) {
+            setDataLocalStorage('user-data', {
+                name: data.displayName,
+                email: data.email,
+                uid: data.uid,
+                photoURL: data.photoURL,
+                authProvider: "google",
+                accessToken: data.accessToken
+            });
+            navigate('/');
+            setLoadingFirebase(false);
+        }
+    }, [user]);
+
+    // useEffect(() => { // TODO: enhance this logic 
+    //     if (user) {
+    //     }
+    // }, [user]);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            setLoadingFirebase(true);
+            const userData = await fetchUserData(user);
+            if (userData) {
+                setDataLocalStorage('user-data', { ...userData, accessToken: user.accessToken });
+                setLoadingFirebase(false)
+                navigate('/');
+            } else {
+                alert('Something went wrong, please try again later.')
+                setLoadingFirebase(false)
+            }
+        };
+        if (user) {
+            fetchUser();
+        }
+    }, [user]);
+
+    if (loadingFirebase) {
+        return <div>
+            <Title level={3}>Loading...</Title>
+        </div>
+    };
+
     return (
         <div>
             <Row>
@@ -70,7 +126,7 @@ const SignUp = () => {
                                 sign up
                             </Button>
                         </form>
-                        <Button onClick={() => signInWithGoogle()}>
+                        <Button onClick={() => onGoogleSignIn()}>
                             sign up with Google
                         </Button>
                     </div>
