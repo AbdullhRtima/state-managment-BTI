@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import i18n (needs to be bundled ;))
+import './utils/i18n';
 
 ReactDOM.render(
   <React.StrictMode>

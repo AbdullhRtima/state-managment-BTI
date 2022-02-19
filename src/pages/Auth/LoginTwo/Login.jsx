@@ -10,6 +10,8 @@ import useAuth from '../../../utils/hooks/Auth';
 import { ACTIONS, GlobalContext } from '../../../utils/context/GlobalContext';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, query, collection, getDocs, where } from '../../../utils/firebase';
+import {useTranslation} from 'react-i18next';
+import ChangeLang from '../../../components/Changelang';
 
 // style 
 import './Login.css';
@@ -27,7 +29,7 @@ const Login = () => {
     const { handleSubmit, control, reset, formState: { errors } } = useForm({});
     const navigate = useNavigate();
     const [user, loading, error] = useAuthState(auth);
-
+    const { t } = useTranslation();
     useAuth();
 
     const onSubmit = useCallback((data) => {
@@ -123,12 +125,13 @@ const Login = () => {
                                 render={({ field }) => <Input type={"password"} {...field} />}
                             />
                             <Button htmlType="submit" >
-                                sign in
+                               {t('auth.login.signIn')}
                             </Button>
                         </form>
                         <Button onClick={() => onGoogleSignIn()}>
                             sign in with Google
                         </Button>
+                        <ChangeLang/>
                     </div>
                 </Col>
             </Row>

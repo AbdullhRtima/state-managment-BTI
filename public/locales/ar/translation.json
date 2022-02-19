@@ -1,0 +1,16 @@
+{
+  "title":"حاضنة الاعمل",
+  "auth":{
+      "login":{
+        "signIn":"تسجيل الدخول",
+        "signInWithGoogle":"تسجيل الدخول باستخدام جوجل"
+      },
+      "register":{
+        "signUp":"تسجيل",
+        "signUpWithGoogle":"تسجيل باستخدام جوجل"
+      }
+  },
+  "common":{
+    "Home":"الرئيسية"
+  }
+}

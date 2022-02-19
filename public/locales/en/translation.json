@@ -1,0 +1,16 @@
+{
+    "title":"BTI Images",
+    "auth":{
+        "login":{
+          "signIn":"Sign In",
+          "signInWithGoogle":"Sign In with Google"
+        },
+        "register":{
+          "signUp":"Sign Up",
+          "signUpWithGoogle":"Sign Up with Google"
+        }
+    },
+    "common":{
+      "Home":"Home"
+    }
+  }
