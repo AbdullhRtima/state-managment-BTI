@@ -39,12 +39,12 @@ const MainApp = () => {
         <GlobalState>
           <BrowserRouter>
             <Routes>
-              {/* <Route path="/" element={<App />} /> */}
+              <Route path="/" element={<App />} />
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/register" element={<SignUp />} />
+              <Route path="/register" element={<SignUp />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route path="quiz/details/:id" element={<QuizDetails />} />
-              <Route path="*" element={<NotFound />} /> */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </GlobalState>
