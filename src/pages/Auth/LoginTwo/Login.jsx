@@ -10,8 +10,9 @@ import useAuth from '../../../utils/hooks/Auth';
 import { ACTIONS, GlobalContext } from '../../../utils/context/GlobalContext';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, query, collection, getDocs, where } from '../../../utils/firebase';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import ChangeLang from '../../../components/Changelang';
+import { Helmet } from "react-helmet";
 
 // style 
 import './Login.css';
@@ -90,15 +91,12 @@ const Login = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>{t('auth.login.signIn')} </title>
+                <meta name="login to BTI Image uploader" content="login to BTI Image uploader" />
+            </Helmet>
             <Row>
-                <Col className='section-one' span={12}>
-                    <div className='logo-container'>
-                        <Image src={loginLogo} preview={false} />
-                        <Text className='text-title'>
-                            Welcome to BTI Image Uploader App
-                        </Text>
-                    </div>
-                </Col>
+
                 <Col className='section-two' span={12}>
                     <div className='header-login'>
                         <div className='title-container'>
@@ -125,13 +123,21 @@ const Login = () => {
                                 render={({ field }) => <Input type={"password"} {...field} />}
                             />
                             <Button htmlType="submit" >
-                               {t('auth.login.signIn')}
+                                {t('auth.login.signIn')}
                             </Button>
                         </form>
                         <Button onClick={() => onGoogleSignIn()}>
                             sign in with Google
                         </Button>
-                        <ChangeLang/>
+                        <ChangeLang />
+                    </div>
+                </Col>
+                <Col className='section-one' span={12}>
+                    <div className='logo-container'>
+                        <Image src={loginLogo} preview={false} />
+                        <Text className='text-title'>
+                            Welcome to BTI Image Uploader App
+                        </Text>
                     </div>
                 </Col>
             </Row>
